@@ -78,13 +78,19 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
+    }
+
     namespace "com.dotaschedule.dota_schedule"
     defaultConfig {
         applicationId "com.dotaschedule.dota_schedule"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 29
-        versionName "1.16.1"
+        versionCode 30
+        versionName "1.16.2"
     }
     signingConfigs {
         debug {
