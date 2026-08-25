@@ -48,6 +48,7 @@ jobs:
       - name: Compilar APK firmado
         working-directory: project/android
         run: |
+          chmod +x ./gradlew
           ./gradlew assembleRelease \
             -PRELEASE_STORE_FILE=release.keystore \
             -PRELEASE_STORE_PASSWORD="${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" \
