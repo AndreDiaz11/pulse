@@ -80,3 +80,4 @@ scripts/node_modules/
 
 # Keystore de release (se provee via secretos/, nunca en el repo)
 android/app/release.keystore
+supabase/.temp/
