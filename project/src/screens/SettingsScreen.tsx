@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Switch, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useSettingsStore } from '../store/settingsStore';
 import { AppColors } from '../theme/colors';
+import packageJson from '../../package.json';
 
 const OPTIONS: { minutes: number; label: string }[] = [
   { minutes: 15, label: '15 minutos antes' },
@@ -51,6 +52,8 @@ export function SettingsScreen() {
           />
         </View>
       </View>
+
+      <Text style={styles.versionLabel}>Pulse v{packageJson.version}</Text>
     </View>
   );
 }
@@ -64,4 +67,5 @@ const styles = StyleSheet.create({
   switchRow: { flexDirection: 'row', alignItems: 'center', padding: 14 },
   switchTitle: { color: AppColors.textPrimary, fontWeight: '600' },
   switchSubtitle: { color: AppColors.textSecondary, fontSize: 12, marginTop: 4 },
+  versionLabel: { color: AppColors.textSecondary, fontSize: 12, textAlign: 'center', marginTop: 8 },
 });
