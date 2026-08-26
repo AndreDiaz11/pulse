@@ -89,8 +89,8 @@ android {
         applicationId "com.dotaschedule.dota_schedule"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 32
-        versionName "1.16.4"
+        versionCode 33
+        versionName "1.16.5"
     }
     signingConfigs {
         debug {
