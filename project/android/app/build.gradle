@@ -73,6 +73,12 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
+// versionName se deriva de package.json para que exista una sola fuente
+// de verdad de la version (evita que el chequeo de actualizaciones en la
+// app quede desincronizado con el build nativo, como paso hasta v1.16.6).
+def packageJsonVersion = new groovy.json.JsonSlurper()
+    .parseText(file("../../package.json").text).version
+
 android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -89,8 +95,8 @@ android {
         applicationId "com.dotaschedule.dota_schedule"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 34
-        versionName "1.16.6"
+        versionCode 35
+        versionName packageJsonVersion
     }
     signingConfigs {
         debug {
