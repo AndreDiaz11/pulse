@@ -71,6 +71,12 @@ class PersistentNotificationService : Service() {
 
     val next = findNextMatch(matchesJson)
     if (next == null) {
+      // Android exige llamar a startForeground() dentro de los primeros
+      // segundos de startForegroundService(), incluso si el servicio va a
+      // detenerse de inmediato por no haber partidos favoritos todavia
+      // (p. ej. instalacion nueva). No cumplir esto causa
+      // ForegroundServiceDidNotStartInTimeException y tumba la app.
+      startForeground(NOTIFICATION_ID, buildEmptyNotification())
       stopForeground(true)
       stopSelf()
       return
@@ -78,6 +84,16 @@ class PersistentNotificationService : Service() {
 
     val notification = buildNotification(next, leadMinutes)
     startForeground(NOTIFICATION_ID, notification)
+  }
+
+  private fun buildEmptyNotification(): Notification {
+    return NotificationCompat.Builder(this, CHANNEL_ID)
+      .setContentTitle("Pulse")
+      .setContentText("Sin partidos favoritos próximos")
+      .setSmallIcon(android.R.drawable.ic_menu_recent_history)
+      .setOnlyAlertOnce(true)
+      .setPriority(NotificationCompat.PRIORITY_LOW)
+      .build()
   }
 
   private fun findNextMatch(matchesJson: String?): JSONObject? {
