@@ -3,6 +3,7 @@ import { Pressable } from 'react-native';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { AppColors } from '../theme/colors';
 import { DrawerContent } from './DrawerContent';
@@ -59,9 +60,11 @@ const navTheme = {
 };
 
 export function RootNavigator() {
+  const insets = useSafeAreaInsets();
+
   return (
     <NavigationContainer theme={navTheme}>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ contentStyle: { paddingBottom: insets.bottom } }}>
         <Stack.Screen name="Tabs" component={TabsDrawer} options={{ headerShown: false }} />
         <Stack.Screen name="MatchDetail" component={MatchDetailScreen} options={{ ...headerOptions, title: 'Detalle del partido' }} />
         <Stack.Screen name="TeamProfile" component={TeamProfileScreen} options={({ route }: any) => ({ ...headerOptions, title: route.params.team.name })} />
